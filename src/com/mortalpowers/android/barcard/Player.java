@@ -16,7 +16,11 @@ public class Player {
 	
 	public void advance(int count) {
 		x += count;
-		y += x / GameBoard.width;
+		y += x / GameBoard.height;
 		x = x % GameBoard.width;
+		if (y >= GameBoard.height) {
+			y = GameBoard.height - 1;
+			x = GameBoard.width - 1;
+		}
 	}
 }

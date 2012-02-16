@@ -23,7 +23,7 @@ public class GameBoard extends GridLayout {
 		players = new ArrayList<Player>();
 		players.add(new Player("1"));
 		Player p2 = new Player("2");
-		p2.advance(10);
+		p2.advance(100);
 		p2.advance(10);
 		p2.advance(1);
 		players.add(p2);
