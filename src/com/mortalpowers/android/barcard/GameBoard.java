@@ -13,19 +13,14 @@ public class GameBoard extends GridLayout {
 	private ArrayList<Player> players;
 	
 	
-	public GameBoard(Context context) {
+	public GameBoard(Context context, ArrayList<Player> players) {
 		super(context);
 		setRowCount(height);
 		setColumnCount(width);
 		
 		data = new ArrayList<ArrayList<TextView>>();
 		
-		players = new ArrayList<Player>();
-		players.add(new Player("1"));
-		Player p2 = new Player("2");
-		p2.x = 3;
-		p2.y = 6;
-		players.add(p2);
+		this.players = players;
 		
 		for (int i = 0; i < width; i++) {
 			ArrayList<TextView> row = new ArrayList<TextView>();
@@ -67,5 +62,8 @@ public class GameBoard extends GridLayout {
 	
 	public String getGridValue(int x, int y) {
 		return (String) data.get(x).get(y).getText();
+	}
+	public int size() {
+		return width * height;
 	}
 }
