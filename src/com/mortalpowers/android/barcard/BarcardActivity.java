@@ -43,8 +43,7 @@ public class BarcardActivity extends Activity {
 		players = new ArrayList<Player>();
 		players.add(new Player("1"));
 		Player p2 = new Player("2");
-		p2.x = 3;
-		p2.y = 6;
+		
 		players.add(p2);
 		
 		gb = new GameBoard(this, players);
@@ -89,8 +88,11 @@ public class BarcardActivity extends Activity {
 					return;
 				}
 				
+				Log.d("barcard","Increased the position of player " + currentPlayerTurn + " by " + result);
 				
-				//players.get(currentPlayerTurn).advance(Integer.parseInt(contents));
+				players.get(currentPlayerTurn).advance(result);
+				currentPlayerTurn = ( currentPlayerTurn + 1) % players.size();
+				
 				updateViews();
 				// Handle successful scan
 			} else if (resultCode == RESULT_CANCELED) {
@@ -117,5 +119,7 @@ public class BarcardActivity extends Activity {
 		TextView formatView = (TextView) findViewById(R.id.formatValue);
 		contentView.setText(contents);
 		formatView.setText(format);
+		
+		gb.updateBoard();
 	}
 }
