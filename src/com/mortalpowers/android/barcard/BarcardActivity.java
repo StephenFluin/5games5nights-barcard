@@ -1,5 +1,7 @@
 package com.mortalpowers.android.barcard;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -15,6 +17,10 @@ import android.widget.Toast;
 public class BarcardActivity extends Activity {
 	String contents;
 	String format;
+	ArrayList<Player> players;
+	GameBoard gb;
+	
+	int currentPlayerTurn = 0;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -32,8 +38,17 @@ public class BarcardActivity extends Activity {
 			}
 		});
 		
+		
+		
+		players = new ArrayList<Player>();
+		players.add(new Player("1"));
+		Player p2 = new Player("2");
+		p2.x = 3;
+		p2.y = 6;
+		players.add(p2);
+		
+		gb = new GameBoard(this, players);
 		LinearLayout l = (LinearLayout) findViewById(R.id.linearLayout1);
-		GameBoard gb = new GameBoard(this);
 		l.addView(gb);
 	}
 
@@ -61,7 +76,21 @@ public class BarcardActivity extends Activity {
 				// The Intents Fairy has delivered us some data!
 				contents = intent.getStringExtra("SCAN_RESULT");
 				format = intent.getStringExtra("SCAN_RESULT_FORMAT");
-
+				int result;
+				try {
+					 result = Integer.parseInt(contents);
+					if(result > gb.size()) {
+						throw new NumberFormatException("advance bigger than game board!");
+					}
+				} catch (NumberFormatException ex) {
+					// Scan again.
+					toast("Not a valid game card, please scan again!");
+					scanSomething();
+					return;
+				}
+				
+				
+				//players.get(currentPlayerTurn).advance(Integer.parseInt(contents));
 				updateViews();
 				// Handle successful scan
 			} else if (resultCode == RESULT_CANCELED) {
@@ -70,6 +99,14 @@ public class BarcardActivity extends Activity {
 		}
 	}
 
+	public void toast(String message) {
+		toast(message,true);
+	}
+	public void toast(String message, boolean longToast) {
+		
+		Toast.makeText(getApplicationContext(), message,
+				   longToast ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT).show(); 
+	}
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
 
