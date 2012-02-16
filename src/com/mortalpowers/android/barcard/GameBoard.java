@@ -7,8 +7,8 @@ import android.widget.GridLayout;
 import android.widget.TextView;
 
 public class GameBoard extends GridLayout {
-	private final int width = 10;
-	private final int height = 10;
+	public static final int width = 10;
+	public static final int height = 10;
 	private ArrayList<ArrayList<TextView>> data;
 	private ArrayList<Player> players;
 	
@@ -23,8 +23,9 @@ public class GameBoard extends GridLayout {
 		players = new ArrayList<Player>();
 		players.add(new Player("1"));
 		Player p2 = new Player("2");
-		p2.x = 3;
-		p2.y = 6;
+		p2.advance(10);
+		p2.advance(10);
+		p2.advance(1);
 		players.add(p2);
 		
 		for (int i = 0; i < width; i++) {

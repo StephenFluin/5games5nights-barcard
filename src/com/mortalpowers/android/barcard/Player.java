@@ -10,6 +10,13 @@ public class Player {
 	}
 	
 	public void move(int toX, int toY) {
-		
+		x = toX;
+		y = toY;
+	}
+	
+	public void advance(int count) {
+		x += count;
+		y += x / GameBoard.width;
+		x = x % GameBoard.width;
 	}
 }
