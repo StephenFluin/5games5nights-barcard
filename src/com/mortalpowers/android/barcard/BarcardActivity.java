@@ -25,15 +25,16 @@ public class BarcardActivity extends Activity {
 
 		Button scan = (Button) findViewById(R.id.button1);
 		scan.setOnClickListener(new OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
 				scanSomething();
 
 			}
 		});
-		Toast.makeText(this, "OnCreate", Toast.LENGTH_SHORT).show();
-
+		
+		LinearLayout l = (LinearLayout) findViewById(R.id.linearLayout1);
+		GameBoard gb = new GameBoard(this);
+		l.addView(gb);
 	}
 
 	public void scanSomething() {
